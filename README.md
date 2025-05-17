@@ -1,0 +1,1 @@
+# week0-solar-challenge
