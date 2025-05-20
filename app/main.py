@@ -39,11 +39,18 @@ st.title("Cross-Country Solar Potential Comparison")
 
 df = load_data()
 
+all_countries = df["Country"].unique().tolist()
+selected_countries = st.multiselect("Select Countries", options=all_countries, default=all_countries)
+
+# Filter the DataFrame based on selected countries
+filtered_df = df[df["Country"].isin(selected_countries)]
+
+# Use the filtered DataFrame in your visualizations
 metric = st.selectbox("Select Solar Metric", ["GHI", "DNI", "DHI"])
-plot_boxplots(df, metric)
+plot_boxplots(filtered_df, metric)
 
 if st.checkbox("Show Summary Table"):
-    show_summary(df)
+    show_summary(filtered_df)
 
 if st.button("Average GHI Ranking"):
-    show_bar_chart(df)
+    show_bar_chart(filtered_df)
